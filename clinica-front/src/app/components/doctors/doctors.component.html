@@ -1,0 +1,52 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre</th>
+    <th scope="col">Especialidad</th>
+    <th scope="col">Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let doctor of doctors, index as i">
+    <th scope="row">{{i+1}}</th>
+    <td>{{doctor.nombre}}</td>
+    <td>{{doctor.especialidad}}</td>
+    <td><button (click)="editDoctorOpen(doctor)" class="btn btn-info">Editar</button></td>
+  </tr>
+  </tbody>
+</table>
+<!-- Button trigger modal -->
+<button type="button" (click)="newDoctorOpen()" class="btn btn-primary">
+  Nuevo
+</button>
+<!-- Modal Edit -->
+<div class="modal fade" id="DoctorModal" tabindex="-1" aria-labelledby="DoctorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="isEdit" class="modal-title" id="exampleModalLabel">Editar Médico</h5>
+        <h5 *ngIf="!isEdit" class="modal-title" id="exampleModalLabel">Agregar Médico</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" [(ngModel)]="doctor.nombre" [ngModelOptions]="{standalone: true}" class="form-control" id="name"  >
+          </div>
+          <div class="form-group">
+            <label for="espec">Especialidad</label>
+            <input type="text" [(ngModel)]="doctor.especialidad" [ngModelOptions]="{standalone: true}" class="form-control" id="espec" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="DoctorSave()" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,53 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre Médico</th>
+    <th scope="col">Fecha</th>
+    <th scope="col">Especialidad</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let appointment of appointments, index as i">
+    <th scope="row">{{i+1}}</th>
+    <td>{{appointment.nombreMedico}}</td>
+    <td>{{appointment.fecha}}</td>
+    <td>{{appointment.especialidad}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AppointmentModal">
+  Nueva Cita
+</button>
+<!-- Modal Edit -->
+<div class="modal fade" id="AppointmentModal" tabindex="-1" aria-labelledby="AppointmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Cita</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name">Nombre Médico</label>
+            <select [(ngModel)]="appointment.IdMedico" [ngModelOptions]="{ standalone: true }" class="form-control" id="name">
+              <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.nombre }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">Fecha</label>
+            <input type="datetime-local" [min]="getMinimumDateTime()" [(ngModel)]="appointment.fecha" [ngModelOptions]="{standalone: true}" class="form-control" id="date" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" (click)="AppointmentSave()" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
